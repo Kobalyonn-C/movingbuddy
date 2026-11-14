@@ -1,6 +1,6 @@
 """Static site generator. Run: python3 build.py   (optional: SITE_URL=https://yourdomain.com)"""
 import os, json, shutil, html
-SITE = os.environ.get("SITE_URL", "https://movingbuddy.example").rstrip("/")
+SITE = os.environ.get("SITE_URL", "https://movingbuddy.pages.dev").rstrip("/")
 OUT = "public"
 NAV = [("box-calculator.html","Boxes"),("moving-volume-calculator.html","Volume"),("truck-size-calculator.html","Truck"),("moving-checklist.html","Checklist"),("moving-cost-calculator.html","Costs")]
 ICON = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"%s>%s</svg>'
