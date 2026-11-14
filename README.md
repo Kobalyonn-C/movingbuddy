@@ -1,29 +1,46 @@
 # MovingBuddy — Your move, made simple.
 
-Free moving planner: box, volume, truck, checklist and cost calculators. Plain HTML/CSS/JS, no framework, no backend, no paid APIs. State is kept in the visitor's `localStorage`.
+Free moving planner with box, volume, truck, checklist and cost calculators. The site uses plain HTML, CSS and JavaScript, with no framework, backend or paid APIs. Moving-plan data is stored in the visitor's browser using `localStorage`.
 
-## Structure
-- `src/app.js`, `src/style.css` — all calculator logic and styles (edit here)
-- `build.py` — generates the pages (SEO text, JSON-LD, sitemap, robots) into `public/`
-- `public/` — the deployable site (already built)
+## Project structure
 
-## Edit and rebuild
-```
-SITE_URL=https://movingbuddy.pages.dev python3 build.py
-```
-Set `SITE_URL` to your real domain so canonical URLs and `sitemap.xml` are correct. Calculator assumptions (box mixes, item volumes, vehicle capacities) are the constants `CATS`, `V` and `VEH` at the top of each tool in `src/app.js`.
+- `public/` — the live website files. Cloudflare Pages deploys this directory directly.
+- `public/assets/app.js`, `public/assets/style.css` — JavaScript and CSS loaded by the published pages.
+- `public/*.html` — the website pages, including the calculators and legal pages.
+- `src/app.js`, `src/style.css` — source/reference copies of the JavaScript and CSS. Keep these in sync with the corresponding files in `public/assets/` when making changes.
+- `build.py` — legacy generator, intentionally disabled. **Do not run it.** It is not part of the current deployment workflow.
+
+## Editing the website
+
+The published site is served directly from `public/`. To change the live website:
+
+1. Edit the relevant HTML file in `public/`, or edit `public/assets/app.js` / `public/assets/style.css` for shared functionality and styling.
+2. If you change `public/assets/app.js` or `public/assets/style.css`, copy the same changes to `src/app.js` or `src/style.css` so the reference copies remain synchronized.
+3. Commit and push the changes to the GitHub `main` branch.
+4. Cloudflare Pages will deploy the updated `public/` directory automatically.
+
+Do not run `python3 build.py` and do not configure a build command in Cloudflare Pages. The legacy generator is disabled to protect manually maintained pages, SEO files and Google Search Console verification files.
 
 ## Deploy: GitHub + Cloudflare Pages
-1. Push this folder to a GitHub repository (commit `public/`).
-2. Cloudflare dashboard → Workers & Pages → Create → Pages → Connect to Git → choose the repo.
-3. **Framework preset:** None. **Build command:** *(leave empty)*. **Build output directory:** `public`.
-4. Save and deploy. Add your custom domain under Custom domains.
 
-To have Cloudflare run the generator instead, use build command `SITE_URL=https://yourdomain.com python3 build.py` and the same output directory.
+The current Cloudflare Pages configuration is:
 
-## Manual steps before launch
-- Replace every `[PLACEHOLDER]` in About, Contact, Privacy, Terms and Cookies (edit `LEGAL` in `build.py`, or the generated HTML) and have the legal drafts reviewed.
-- Set `SITE_URL` and rebuild; submit `sitemap.xml` in Google Search Console.
-- Add an Open Graph image (`og:image`) if wanted.
-- AdSense: not active. Three commented `AD SLOT` markers exist on each tool page. After approval, add Google's script to `head()` in `build.py` and place units at those markers. Replace the storage notice in `app.js` with a consent tool (CMP) that fits the regions you serve, and update the Privacy and Cookie policies.
-- Spanish: strings live in `build.py` and `app.js`; a `/es/` copy is the next step.
+- Git repository: `movingbuddy`
+- Production branch: `main`
+- Framework preset: `None`
+- Build command: leave empty
+- Build output directory: `public`
+
+Push commits to `main`; Cloudflare Pages publishes the contents of `public/` automatically. No build step is required.
+
+## Before making changes
+
+- Preserve the legal pages: `public/privacy.html`, `public/terms.html` and `public/cookies.html`.
+- Preserve `public/sitemap.xml`, `public/robots.txt`, `public/_headers`, the favicon and the Google Search Console verification file.
+- If a page URL changes or a new page is added, review `public/sitemap.xml` and internal links.
+- After deployment, check the changed page on the live website and test any affected calculator interactions.
+
+## Future work
+
+- AdSense is not currently active. Review applicable consent, privacy and cookie requirements before adding advertising or analytics services.
+- Spanish-language pages may be added in a future release.
