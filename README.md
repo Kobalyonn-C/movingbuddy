@@ -9,7 +9,7 @@ Free moving planner: box, volume, truck, checklist and cost calculators. Plain H
 
 ## Edit and rebuild
 ```
-SITE_URL=(https://movingbuddy.pages.dev/) python3 build.py
+SITE_URL=https://movingbuddy.pages.dev python3 build.py
 ```
 Set `SITE_URL` to your real domain so canonical URLs and `sitemap.xml` are correct. Calculator assumptions (box mixes, item volumes, vehicle capacities) are the constants `CATS`, `V` and `VEH` at the top of each tool in `src/app.js`.
 
