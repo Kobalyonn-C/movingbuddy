@@ -1,5 +1,12 @@
-"""Static site generator. Run: python3 build.py   (optional: SITE_URL=https://yourdomain.com)"""
+"""Legacy generator disabled to protect the manually maintained public website."""
+
 import os, json, shutil, html
+
+raise SystemExit(
+    "Build disabled: MovingBuddy is deployed directly from public/. "
+    "Do not run this legacy generator until it has been safely updated."
+)
+
 SITE = os.environ.get("SITE_URL", "https://movingbuddy.pages.dev").rstrip("/")
 OUT = "public"
 NAV = [("box-calculator.html","Boxes"),("moving-volume-calculator.html","Volume"),("truck-size-calculator.html","Truck"),("moving-checklist.html","Checklist"),("moving-cost-calculator.html","Costs")]
